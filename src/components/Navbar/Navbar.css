@@ -1,0 +1,211 @@
+/* =========================================
+   Navbar
+   ========================================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: var(--spacing-sm);
+}
+
+/* --- Logo --- */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.navbar__logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar__logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-navy);
+}
+
+/* --- Links escritorio --- */
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.navbar__links {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.navbar__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-navy);
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.navbar__link:hover {
+  color: var(--color-electric);
+  border-bottom-color: var(--color-electric);
+}
+
+.navbar__link--active {
+  color: var(--color-electric);
+  border-bottom-color: var(--color-electric);
+}
+
+/* --- Botón hamburguesa --- */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.navbar__hamburger:hover {
+  background-color: var(--color-light);
+}
+
+.navbar__hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-navy);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* Animación hamburguesa → X */
+.navbar__hamburger--open .navbar__hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar__hamburger--open .navbar__hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+.navbar__hamburger--open .navbar__hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Menú móvil --- */
+.navbar__mobile {
+  display: none;
+  background-color: var(--color-white);
+  border-top: 1px solid #e2e8f0;
+}
+
+.navbar__mobile--open {
+  display: block;
+}
+
+.navbar__mobile-links {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-sm) 0;
+}
+
+.navbar__mobile-link {
+  display: block;
+  padding: 0.875rem var(--spacing-md);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-navy);
+  border-left: 3px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.navbar__mobile-link:hover {
+  color: var(--color-electric);
+  background-color: var(--color-light);
+}
+
+.navbar__mobile-link--active {
+  color: var(--color-electric);
+  border-left-color: var(--color-electric);
+  background-color: rgba(35, 99, 218, 0.05);
+}
+
+/* --- Responsive --- */
+@media (max-width: 767px) {
+  .navbar__nav {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+  }
+}
+
+/* --- Botón CTA escritorio --- */
+.navbar__cta {
+  margin-left: var(--spacing-xs);
+  padding: 0.5rem 1rem;
+  background-color: var(--color-electric);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 2px solid var(--color-electric);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  min-height: 44px;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.navbar__cta:hover {
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+  box-shadow: 0 4px 12px rgba(35, 99, 218, 0.3);
+}
+
+.navbar__cta:focus-visible {
+  outline: 3px solid var(--color-electric);
+  outline-offset: 2px;
+}
+
+/* --- Botón CTA móvil --- */
+.navbar__mobile-cta {
+  display: block;
+  width: calc(100% - var(--spacing-md) * 2);
+  margin: var(--spacing-xs) var(--spacing-md) var(--spacing-sm);
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-electric);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  min-height: 44px;
+  text-align: center;
+  transition: background-color var(--transition-fast);
+}
+
+.navbar__mobile-cta:hover {
+  background-color: var(--color-blue);
+}

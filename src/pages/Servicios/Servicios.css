@@ -1,0 +1,66 @@
+/* =========================================
+   Servicios
+   ========================================= */
+
+.servicios-hero {
+  background-color: var(--color-navy);
+  padding-block: var(--spacing-lg);
+}
+
+.servicios-grid-section {
+  padding-block: var(--spacing-xl);
+  background-color: var(--color-light);
+}
+
+.servicios__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+/* --- Tarjeta de servicio --- */
+.servicio-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 3px solid var(--color-electric);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.servicio-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.servicio-card__icon {
+  font-size: 2.5rem;
+}
+
+.servicio-card__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.servicio-card__description {
+  font-size: 0.9rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1023px) {
+  .servicios__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .servicios__grid {
+    grid-template-columns: 1fr;
+  }
+}

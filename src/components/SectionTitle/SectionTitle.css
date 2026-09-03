@@ -1,0 +1,73 @@
+/* =========================================
+   SectionTitle
+   ========================================= */
+
+.section-title {
+  margin-bottom: var(--spacing-md);
+}
+
+.section-title__heading {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-navy);
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+/* Línea decorativa bajo el título */
+.section-title__heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background-color: var(--color-electric);
+  border-radius: 2px;
+}
+
+.section-title__subtitle {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  color: #4a5568;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* --- Alineaciones --- */
+.section-title--center {
+  text-align: center;
+}
+
+.section-title--center .section-title__heading::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-title--center .section-title__subtitle {
+  margin-inline: auto;
+}
+
+.section-title--left {
+  text-align: left;
+}
+
+.section-title--right {
+  text-align: right;
+}
+
+.section-title--right .section-title__heading::after {
+  left: auto;
+  right: 0;
+}
+
+/* --- Variante clara (sobre fondo oscuro) --- */
+.section-title--light .section-title__heading {
+  color: var(--color-white);
+}
+
+.section-title--light .section-title__subtitle {
+  color: rgba(255, 255, 255, 0.75);
+}

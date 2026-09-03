@@ -1,0 +1,187 @@
+/* =========================================
+   Inicio
+   ========================================= */
+
+/* --- Hero --- */
+.hero {
+  position: relative;
+  background-color: var(--color-navy);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--color-white);
+  padding-block: var(--spacing-xl);
+}
+
+/* Overlay oscuro para que el texto sea legible sobre la imagen */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(8, 29, 65, 0.72);
+  z-index: 0;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  max-width: 580px;
+  margin-right: auto;
+  padding-left: var(--spacing-md);
+}
+
+.hero__title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-white);
+}
+
+.hero__title--accent {
+  color: var(--color-electric);
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+/* Sobreescribir color del outline en fondo oscuro */
+.hero__actions .btn--outline {
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.hero__actions .btn--outline:hover {
+  background-color: var(--color-white);
+  color: var(--color-navy);
+}
+
+/* --- Servicios preview --- */
+.inicio-services {
+  padding-block: var(--spacing-xl);
+  background-color: var(--color-light);
+}
+
+.inicio-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+/* Tarjetas placeholder — se reemplazarán con el diseño Figma */
+.service-card-placeholder {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  transition: box-shadow var(--transition-base);
+}
+
+.service-card-placeholder:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.service-card-placeholder__icon {
+  font-size: 2rem;
+}
+
+.service-card-placeholder h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.service-card-placeholder p {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.inicio-services__cta {
+  text-align: center;
+  margin-top: var(--spacing-md);
+}
+
+.inicio-services__link {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-electric);
+  transition: color var(--transition-fast);
+}
+
+.inicio-services__link:hover {
+  color: var(--color-blue);
+}
+
+/* --- CTA final --- */
+.inicio-cta {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  padding-block: var(--spacing-xl);
+}
+
+.inicio-cta__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+.inicio-cta__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.inicio-cta__text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 480px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1023px) {
+  .inicio-services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: var(--spacing-lg);
+  }
+
+  .inicio-services__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__actions a {
+    width: 100%;
+    text-align: center;
+  }
+}
