@@ -82,3 +82,9 @@
     gap: var(--spacing-sm);
   }
 }
+
+.footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}

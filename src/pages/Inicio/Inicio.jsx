@@ -1,9 +1,22 @@
 import { Link } from 'react-router-dom'
 import Button from '../../components/Button/Button'
-import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import heroImg from '../../assets/hero-rozzy-tech.png'
-import { Globe, Smartphone, Plug } from 'lucide-react'
+import logo from '../../assets/RozzyTech.png'
+import { Globe, Smartphone, Cloud, Settings, Users, Shield, Lightbulb } from 'lucide-react'
 import './Inicio.css'
+
+const SERVICIOS_HOME = [
+  { id: 1, Icon: Globe,      title: 'Desarrollo Web',        description: 'Sitios y aplicaciones web modernas, rápidas y seguras.' },
+  { id: 2, Icon: Smartphone, title: 'Desarrollo Móvil',      description: 'Aplicaciones móviles funcionales para iOS y Android.' },
+  { id: 3, Icon: Cloud,      title: 'Soluciones en la Nube', description: 'Infraestructura escalable, segura y disponible 24/7.' },
+  { id: 4, Icon: Settings,   title: 'Sistemas a Medida',     description: 'Desarrollamos sistemas personalizados según los procesos de tu negocio.' },
+]
+
+const CARACTERISTICAS = [
+  { id: 1, Icon: Users,      texto: 'Enfoque en el cliente.' },
+  { id: 2, Icon: Shield,     texto: 'Calidad y Seguridad.' },
+  { id: 3, Icon: Lightbulb,  texto: 'Innovación constante.' },
+]
 
 function Inicio() {
   return (
@@ -22,11 +35,11 @@ function Inicio() {
             </h1>
             <p className="hero__subtitle">
               Desarrollamos soluciones de Software personalizadas,
-               modernas y escalables que optimizan procesos,
-                mejoran la productividad y hacen crecer tu empresa.
+              modernas y escalables que optimizan procesos,
+              mejoran la productividad y hacen crecer tu empresa.
             </p>
             <div className="hero__actions">
-              <Button variant="primary" size="lg" as={Link}>
+              <Button variant="primary" size="lg">
                 <Link to="/servicios">Ver servicios</Link>
               </Button>
               <Button variant="outline" size="lg">
@@ -37,57 +50,62 @@ function Inicio() {
         </div>
       </section>
 
-      {/* Vista previa de servicios */}
-      <section className="inicio-services">
+      {/* Sección de servicios */}
+      <section className="home-services">
         <div className="container">
-          <SectionTitle
-            title="¿Qué hacemos?"
-            subtitle="Ofrecemos soluciones de desarrollo de software adaptadas a las necesidades de cada negocio."
-          />
-          {/* Las tarjetas de servicios se completarán con el diseño de Figma */}
-          <div className="inicio-services__grid">
-            <div className="service-card-placeholder">
-              <div className="service-card-placeholder__icon" aria-hidden="true">
-                <Globe size={32} strokeWidth={1.5} color="#2363da" />
-              </div>
-              <h3>Desarrollo Web</h3>
-              <p>Aplicaciones web modernas y responsivas.</p>
+          <div className="home-services__layout">
+            <div className="home-services__heading">
+              <p className="home-services__tagline">Soluciones que se adaptan a tus necesidades</p>
             </div>
-            <div className="service-card-placeholder">
-              <div className="service-card-placeholder__icon" aria-hidden="true">
-                <Smartphone size={32} strokeWidth={1.5} color="#2363da" />
-              </div>
-              <h3>Desarrollo Móvil</h3>
-              <p>Apps nativas e híbridas para iOS y Android.</p>
-            </div>
-            <div className="service-card-placeholder">
-              <div className="service-card-placeholder__icon" aria-hidden="true">
-                <Plug size={32} strokeWidth={1.5} color="#2363da" />
-              </div>
-              <h3>Integraciones</h3>
-              <p>Conexión entre sistemas y servicios externos.</p>
-            </div>
+            <ul className="home-services__grid" role="list">
+              {SERVICIOS_HOME.map(({ id, Icon, title, description }) => (
+                <li key={id} className="home-service-item">
+                  <div className="home-service-item__icon" aria-hidden="true">
+                    <Icon size={36} strokeWidth={1.5} color="#2363da" />
+                  </div>
+                  <h3 className="home-service-item__title">{title}</h3>
+                  <p className="home-service-item__desc">{description}</p>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="inicio-services__cta">
-            <Link to="/servicios" className="inicio-services__link">
-              Ver todos los servicios →
+
+          <div className="home-services__cta">
+            <Link to="/servicios" className="home-services__btn">
+              Ver todos los servicios ›
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Llamada a la acción */}
-      <section className="inicio-cta">
-        <div className="container inicio-cta__content">
-          <h2 className="inicio-cta__title">¿Listo para empezar?</h2>
-          <p className="inicio-cta__text">
-            Cuéntanos tu proyecto y te damos una solución a medida.
-          </p>
-          <Button variant="primary" size="lg">
-            <Link to="/contacto">Hablar con nosotros</Link>
-          </Button>
+      {/* Sección Somos Rozzy Tech */}
+      <section className="home-about">
+        <div className="container home-about__inner">
+          {/* Logo + texto */}
+          <div className="home-about__brand">
+            <img src={logo} alt="ROZZY TECH" className="home-about__logo" />
+            <div className="home-about__text">
+              <h2 className="home-about__title">Somos Rozzy Tech</h2>
+              <p className="home-about__desc">
+                Un equipo apasionado por la tecnología y la innovación. Ayudamos a empresas
+                y emprendedores a transformar ideas en soluciones digitales que generan valor
+                y resultados.
+              </p>
+            </div>
+          </div>
+
+          {/* Características */}
+          <ul className="home-about__features" role="list">
+            {CARACTERISTICAS.map(({ id, Icon, texto }) => (
+              <li key={id} className="home-about__feature">
+                <Icon size={24} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
+                <span className="home-about__feature-text">{texto}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
+
     </div>
   )
 }
