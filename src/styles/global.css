@@ -15,6 +15,16 @@
   --font-size-base: 1rem;
   --line-height-base: 1.6;
 
+  /* Escala tipográfica global */
+  --text-xs:   0.75rem;   /* 12px — etiquetas, notas */
+  --text-sm:   0.875rem;  /* 14px — descripciones, textos secundarios */
+  --text-base: 1rem;      /* 16px — texto cuerpo */
+  --text-md:   1.125rem;  /* 18px — texto destacado */
+  --text-lg:   1.25rem;   /* 20px — subtítulos pequeños */
+  --text-xl:   1.5rem;    /* 24px — títulos de sección */
+  --text-2xl:  2rem;      /* 32px — títulos principales */
+  --text-3xl:  2.5rem;    /* 40px — títulos hero */
+
   /* Espaciado */
   --spacing-xs:  0.5rem;
   --spacing-sm:  1rem;

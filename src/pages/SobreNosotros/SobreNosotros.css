@@ -2,107 +2,248 @@
    Sobre Nosotros
    ========================================= */
 
+/* ── Hero ── */
 .sobre-hero {
+  position: relative;
   background-color: var(--color-navy);
-  padding-block: var(--spacing-lg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-block: var(--spacing-md);
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  color: var(--color-white);
 }
 
-/* --- Perfil --- */
-.sobre-perfil {
-  padding-block: var(--spacing-xl);
+.sobre-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(8, 29, 65, 0.78);
+  z-index: 0;
+}
+
+.sobre-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+.sobre-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 520px;
+}
+
+.sobre-hero__title {
+  font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+.sobre-hero__accent {
+  color: var(--color-electric);
+}
+
+.sobre-hero__bio {
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+.sobre-hero__logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sobre-hero__logo {
+  width: clamp(120px, 14vw, 220px);
+  height: auto;
+  object-fit: contain;
+  opacity: 0.25;
+  filter: brightness(0) invert(1);
+}
+
+/* ── Misión y Visión ── */
+.sobre-mv {
+  padding-block: var(--spacing-md);
   background-color: var(--color-white);
 }
 
-.sobre-perfil__inner {
+.sobre-mv__inner {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
   align-items: start;
 }
 
-/* Avatar placeholder circular */
-.sobre-perfil__avatar {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background-color: var(--color-blue);
+.sobre-mv__image-wrapper {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.sobre-mv__image {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.sobre-mv__content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--color-white);
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
-.sobre-perfil__name {
-  font-size: 1.75rem;
-  font-weight: 800;
+.sobre-mv__block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sobre-mv__title {
+  font-size: var(--text-lg);
+  font-weight: 700;
   color: var(--color-navy);
 }
 
-.sobre-perfil__role {
-  font-size: 1rem;
+.sobre-mv__accent {
   color: var(--color-electric);
-  font-weight: 600;
-  margin-top: 0.25rem;
 }
 
-.sobre-perfil__bio {
-  margin-top: var(--spacing-sm);
-  font-size: 1rem;
+.sobre-mv__text {
+  font-size: var(--text-sm);
   color: #4a5568;
-  line-height: 1.75;
-}
-
-.sobre-perfil__value {
-  margin-top: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-light);
-  border-left: 4px solid var(--color-electric);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: 0.95rem;
-  color: var(--color-navy);
   line-height: 1.6;
 }
 
-/* --- Tecnologías --- */
-.sobre-tech {
-  padding-block: var(--spacing-xl);
+/* Características */
+.sobre-mv__features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sobre-mv__feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.sobre-mv__feature-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.sobre-mv__feature-desc {
+  font-size: var(--text-xs);
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+/* ── Nuestros Valores ── */
+.sobre-valores {
+  padding-block: var(--spacing-md);
   background-color: var(--color-light);
 }
 
-.sobre-tech__list {
+.sobre-valores__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-navy);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.sobre-valores__accent {
+  color: var(--color-electric);
+}
+
+.sobre-valores__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sobre-valor-card {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  justify-content: center;
-  margin-top: var(--spacing-md);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: var(--spacing-sm);
 }
 
-.sobre-tech__tag {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-  padding: 0.375rem 1rem;
-  border-radius: 100px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+.sobre-valor-card__title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-navy);
 }
 
-/* --- Responsive --- */
-@media (max-width: 767px) {
-  .sobre-perfil__inner {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
+.sobre-valor-card__desc {
+  font-size: var(--text-sm);
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1023px) {
+  .sobre-valores__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .sobre-perfil__value {
+  .sobre-mv__features {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
     text-align: left;
   }
 
-  .sobre-tech__list {
-    justify-content: center;
+  .sobre-mv__feature {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 767px) {
+  .sobre-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .sobre-hero__logo-wrapper {
+    display: none;
+  }
+
+  .sobre-mv__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .sobre-mv__image-wrapper {
+    display: none;
+  }
+
+  .sobre-valores__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sobre-valores__grid {
+    grid-template-columns: 1fr;
   }
 }

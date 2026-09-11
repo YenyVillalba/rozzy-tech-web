@@ -14,6 +14,8 @@ function Inicio() {
         style={{ backgroundImage: `url(${heroImg})` }}
       >
         <div className="hero__overlay" aria-hidden="true" />
+        {/* Logo decorativo sobre el fondo */}
+        <img src={logo} alt="" className="hero__logo-bg" aria-hidden="true" />
         <div className="container">
           <div className="hero__content">
             <h1 className="hero__title">
