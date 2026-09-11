@@ -1,0 +1,178 @@
+import { Globe, Smartphone, Plug, Wrench, Layers, Cloud } from 'lucide-react'
+
+export const SERVICIOS = [
+  {
+    id: 'desarrollo-web',
+    Icon: Globe,
+    title: 'Desarrollo Web',
+    description: 'Sitios y aplicaciones web modernas, rápidas y seguras.',
+    detalle: {
+      intro:
+        'Construimos soluciones web de alto rendimiento que generan resultados reales para tu negocio. Desde sitios corporativos hasta plataformas complejas, cada proyecto se desarrolla con código limpio, arquitectura escalable y enfoque en la experiencia del usuario.',
+      queHacemos: [
+        'Sitios web corporativos, landing pages y portales institucionales',
+        'Aplicaciones web a medida: CRM, ERP, dashboards y paneles de administración',
+        'Tiendas en línea y plataformas de e-commerce',
+        'Progressive Web Apps (PWA) con experiencia similar a app nativa',
+        'Sistemas de gestión de contenido (CMS) personalizados',
+        'Integraciones con pasarelas de pago, mapas, redes sociales y APIs externas',
+        'Optimización de rendimiento (Core Web Vitals) y SEO técnico',
+        'Accesibilidad web según estándares WCAG',
+      ],
+      beneficios: [
+        'Diseño responsivo que se adapta perfectamente a computador, tablet y móvil',
+        'Código limpio, modular y fácil de escalar o mantener en el tiempo',
+        'Carga rápida gracias a optimización de imágenes, lazy loading y minificación',
+        'Seguridad implementada desde el desarrollo: HTTPS, protección XSS y CSRF',
+        'Entrega con documentación técnica y soporte post-lanzamiento',
+        'Experiencia de usuario (UX) validada antes de la implementación',
+      ],
+      tecnologias: ['React', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Node.js', 'REST APIs', 'Vite', 'Git'],
+    },
+  },
+  {
+    id: 'desarrollo-movil',
+    Icon: Smartphone,
+    title: 'Desarrollo Móvil',
+    description: 'Aplicaciones móviles funcionales para iOS y Android.',
+    detalle: {
+      intro:
+        'Desarrollamos aplicaciones móviles que conectan tu negocio con tus usuarios donde quiera que estén. Nuestras apps combinan rendimiento nativo, diseño intuitivo y funcionalidades avanzadas para ofrecer experiencias que los usuarios eligen usar cada día.',
+      queHacemos: [
+        'Apps híbridas para iOS y Android con una sola base de código',
+        'Interfaces nativas fluidas con animaciones y gestos táctiles',
+        'Autenticación segura: correo, redes sociales y biometría',
+        'Notificaciones push personalizadas y en tiempo real',
+        'Integración con cámara, GPS, sensores y hardware del dispositivo',
+        'Sincronización offline y manejo de datos locales',
+        'Conexión con APIs, bases de datos y servicios en la nube',
+        'Publicación y actualización en App Store y Google Play',
+      ],
+      beneficios: [
+        'Una sola base de código reduce costos y tiempo de desarrollo',
+        'Rendimiento cercano al nativo gracias a React Native',
+        'Experiencia de usuario coherente en iOS y Android',
+        'Pruebas en dispositivos físicos antes de cada entrega',
+        'Actualizaciones continuas sin necesidad de nueva publicación (OTA)',
+        'Soporte post-lanzamiento y monitoreo de errores en producción',
+      ],
+      tecnologias: ['React Native', 'JavaScript', 'Expo', 'Firebase', 'REST APIs', 'AsyncStorage', 'Push Notifications'],
+    },
+  },
+  {
+    id: 'integraciones-apis',
+    Icon: Plug,
+    title: 'Integraciones y APIs',
+    description: 'Conectamos tus sistemas para automatizar procesos y centralizar datos.',
+    detalle: {
+      intro:
+        'Eliminamos los silos de información y los procesos manuales conectando tus herramientas, plataformas y sistemas para que trabajen juntos de forma automática. Una integración bien diseñada puede transformar la productividad de toda tu operación.',
+      queHacemos: [
+        'Diseño y desarrollo de APIs REST seguras y documentadas',
+        'Integración con pasarelas de pago: PayU, Stripe, MercadoPago, ePayco',
+        'Conexión con CRMs como Salesforce, HubSpot y Zoho',
+        'Integración con ERPs y sistemas de facturación electrónica',
+        'Automatización de flujos con webhooks y eventos en tiempo real',
+        'Sincronización de datos entre bases de datos y servicios SaaS',
+        'Migración de datos entre sistemas con validación y limpieza',
+        'Autenticación segura con OAuth 2.0 y JWT',
+      ],
+      beneficios: [
+        'Eliminación de tareas manuales repetitivas y propensas a error',
+        'Datos siempre actualizados y disponibles en todos los sistemas',
+        'Mayor velocidad operativa y reducción de costos administrativos',
+        'APIs documentadas con Swagger para facilitar integraciones futuras',
+        'Monitoreo de integraciones con alertas ante fallos',
+        'Escalabilidad para agregar nuevas integraciones sin romper las existentes',
+      ],
+      tecnologias: ['REST APIs', 'Node.js', 'JSON / XML', 'OAuth 2.0', 'JWT', 'Webhooks', 'Swagger', 'Postman'],
+    },
+  },
+  {
+    id: 'mantenimiento-soporte',
+    Icon: Wrench,
+    title: 'Mantenimiento y Soporte',
+    description: 'Acompañamiento continuo para mantener tus soluciones seguras y actualizadas.',
+    detalle: {
+      intro:
+        'Una aplicación en producción necesita atención constante. Nuestros planes de mantenimiento garantizan que tu sistema esté siempre disponible, seguro y funcionando correctamente, para que puedas enfocarte en hacer crecer tu negocio.',
+      queHacemos: [
+        'Monitoreo 24/7 de disponibilidad y rendimiento de la aplicación',
+        'Corrección de errores y bugs con tiempos de respuesta garantizados',
+        'Actualización de dependencias, librerías y frameworks',
+        'Aplicación de parches de seguridad críticos',
+        'Optimización continua de rendimiento y consultas a base de datos',
+        'Respaldo automático de datos con políticas de retención',
+        'Soporte técnico por correo, WhatsApp y videollamada',
+        'Documentación técnica actualizada del sistema',
+      ],
+      beneficios: [
+        'Minimización del tiempo de inactividad y pérdida de ingresos',
+        'Protección ante vulnerabilidades de seguridad conocidas',
+        'Reducción del riesgo de fallos en producción',
+        'Historial de cambios y auditoría completa del sistema',
+        'Planes ajustables según el tamaño y criticidad de tu aplicación',
+        'Relación de largo plazo que conoce tu sistema a fondo',
+      ],
+      tecnologias: ['Git', 'CI/CD', 'GitHub Actions', 'Monitoreo de servidores', 'Backups automáticos', 'Logs y alertas'],
+    },
+  },
+  {
+    id: 'diseno-ui-ux',
+    Icon: Layers,
+    title: 'Diseño UI/UX',
+    description: 'Interfaces intuitivas y atractivas centradas en la experiencia del usuario.',
+    detalle: {
+      intro:
+        'El diseño no es solo apariencia: es la diferencia entre un usuario que se va frustrado y uno que convierte. Diseñamos interfaces digitales que son visualmente atractivas, fáciles de usar y alineadas con los objetivos de tu negocio.',
+      queHacemos: [
+        'Investigación de usuarios: entrevistas, encuestas y análisis de comportamiento',
+        'Arquitectura de información y mapas de flujo de usuario',
+        'Wireframes de baja y alta fidelidad',
+        'Prototipos interactivos para validar antes de programar',
+        'Diseño visual completo (UI): tipografía, color, iconografía y componentes',
+        'Sistemas de diseño y guías de estilo reutilizables',
+        'Pruebas de usabilidad con usuarios reales',
+        'Diseño de componentes listos para implementar en código',
+      ],
+      beneficios: [
+        'Mayor tasa de conversión al reducir fricción en los flujos clave',
+        'Interfaces coherentes que refuerzan la identidad de tu marca',
+        'Reducción de errores de usuario y solicitudes de soporte',
+        'Validación temprana que evita cambios costosos en desarrollo',
+        'Accesibilidad garantizada para usuarios con diversidad funcional',
+        'Diseños entregados en Figma, listos para el equipo de desarrollo',
+      ],
+      tecnologias: ['Figma', 'Diseño responsivo', 'Accesibilidad WCAG 2.1', 'CSS3', 'Design Systems', 'Prototipado interactivo'],
+    },
+  },
+  {
+    id: 'soluciones-nube',
+    Icon: Cloud,
+    title: 'Soluciones en la Nube',
+    description: 'Infraestructura escalable, segura y disponible 24/7.',
+    detalle: {
+      intro:
+        'Llevamos tu aplicación a la nube con una infraestructura robusta, segura y optimizada para el rendimiento. Configuramos, desplegamos y administramos todo para que tu sistema esté siempre disponible y pueda crecer sin límites.',
+      queHacemos: [
+        'Despliegue de aplicaciones en AWS, Google Cloud Platform o Azure',
+        'Configuración de servidores, bases de datos y balanceadores de carga',
+        'Implementación de pipelines CI/CD para despliegues automáticos y seguros',
+        'Configuración de dominios, DNS y certificados SSL/TLS',
+        'Contenedorización con Docker y orquestación básica',
+        'Configuración de variables de entorno y gestión de secretos',
+        'Backups automáticos con políticas de retención configurables',
+        'Monitoreo de recursos, alertas y escalado automático',
+      ],
+      beneficios: [
+        'Alta disponibilidad con SLA superior al 99.9%',
+        'Escalabilidad horizontal y vertical según la demanda en tiempo real',
+        'Seguridad en capas: firewall, grupos de seguridad y cifrado en tránsito',
+        'Reducción de costos frente a servidores físicos propios',
+        'Despliegues sin tiempo de inactividad gracias a rolling deployments',
+        'Visibilidad completa del estado de tu infraestructura en tiempo real',
+      ],
+      tecnologias: ['AWS', 'Google Cloud', 'Azure', 'Docker', 'GitHub Actions', 'Nginx', 'SSL/TLS', 'CI/CD'],
+    },
+  },
+]
