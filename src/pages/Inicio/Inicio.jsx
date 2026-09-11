@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import Button from '../../components/Button/Button'
-import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import heroImg from '../../assets/hero-rozzy-tech.png'
-import { Globe, Smartphone, Plug } from 'lucide-react'
+import logo from '../../assets/RozzyTech.png'
+import { Globe, Smartphone, Cloud, Settings, Users, ShieldCheck, Lightbulb } from 'lucide-react'
 import './Inicio.css'
 
 function Inicio() {
@@ -40,41 +40,79 @@ function Inicio() {
       </section>
 
       {/* Vista previa de servicios */}
-      <section className="inicio-services">
+      <section className="home-services">
         <div className="container">
-          <SectionTitle
-            title="¿Qué hacemos?"
-            subtitle="Ofrecemos soluciones de desarrollo de software adaptadas a las necesidades de cada negocio."
-          />
-          {/* Las tarjetas de servicios se completarán con el diseño de Figma */}
-          <div className="inicio-services__grid">
-            <div className="service-card-placeholder">
-              <div className="service-card-placeholder__icon" aria-hidden="true">
-                <Globe size={32} strokeWidth={1.5} color="#2363da" />
-              </div>
-              <h3>Desarrollo Web</h3>
-              <p>Aplicaciones web modernas y responsivas.</p>
+          <div className="home-services__layout">
+            <div className="home-services__heading">
+              <p className="home-services__tagline">Soluciones que se adaptan a tus necesidades</p>
             </div>
-            <div className="service-card-placeholder">
-              <div className="service-card-placeholder__icon" aria-hidden="true">
-                <Smartphone size={32} strokeWidth={1.5} color="#2363da" />
-              </div>
-              <h3>Desarrollo Móvil</h3>
-              <p>Apps nativas e híbridas para iOS y Android.</p>
-            </div>
-            <div className="service-card-placeholder">
-              <div className="service-card-placeholder__icon" aria-hidden="true">
-                <Plug size={32} strokeWidth={1.5} color="#2363da" />
-              </div>
-              <h3>Integraciones</h3>
-              <p>Conexión entre sistemas y servicios externos.</p>
-            </div>
+            <ul className="home-services__grid">
+              <li className="home-service-item">
+                <div className="home-service-item__icon" aria-hidden="true">
+                  <Globe size={32} strokeWidth={1.5} color="#2363da" />
+                </div>
+                <h3 className="home-service-item__title">Desarrollo Web</h3>
+                <p className="home-service-item__desc">Sitios y aplicaciones web modernas, rápidas y seguras.</p>
+              </li>
+              <li className="home-service-item">
+                <div className="home-service-item__icon" aria-hidden="true">
+                  <Smartphone size={32} strokeWidth={1.5} color="#2363da" />
+                </div>
+                <h3 className="home-service-item__title">Desarrollo Móvil</h3>
+                <p className="home-service-item__desc">Aplicaciones móviles funcionales para iOS y Android.</p>
+              </li>
+              <li className="home-service-item">
+                <div className="home-service-item__icon" aria-hidden="true">
+                  <Cloud size={32} strokeWidth={1.5} color="#2363da" />
+                </div>
+                <h3 className="home-service-item__title">Soluciones en la Nube</h3>
+                <p className="home-service-item__desc">Infraestructura escalable, segura y disponible 24/7.</p>
+              </li>
+              <li className="home-service-item">
+                <div className="home-service-item__icon" aria-hidden="true">
+                  <Settings size={32} strokeWidth={1.5} color="#2363da" />
+                </div>
+                <h3 className="home-service-item__title">Sistemas a Medida</h3>
+                <p className="home-service-item__desc">Desarrollamos sistemas personalizados según los procesos de tu negocio.</p>
+              </li>
+            </ul>
           </div>
-          <div className="inicio-services__cta">
-            <Link to="/servicios" className="inicio-services__link">
+          <div className="home-services__cta">
+            <Link to="/servicios" className="home-services__btn">
               Ver todos los servicios →
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Somos Rozzy Tech */}
+      <section className="home-about">
+        <div className="container home-about__inner">
+          {/* Texto izquierda */}
+          <div className="home-about__brand">
+            <div className="home-about__text">
+              <h2 className="home-about__title">Somos Rozzy Tech</h2>
+              <p className="home-about__desc">
+                Un equipo apasionado por la tecnología y la innovación. Ayudamos a empresas y emprendedores a transformar ideas en soluciones digitales que generan valor y resultados.
+              </p>
+            </div>
+          </div>
+
+          {/* Features derecha */}
+          <ul className="home-about__features">
+            <li className="home-about__feature">
+              <Users size={28} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
+              <span className="home-about__feature-text">Enfoque en el cliente</span>
+            </li>
+            <li className="home-about__feature">
+              <ShieldCheck size={28} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
+              <span className="home-about__feature-text">Calidad y Seguridad</span>
+            </li>
+            <li className="home-about__feature">
+              <Lightbulb size={28} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
+              <span className="home-about__feature-text">Innovación constante</span>
+            </li>
+          </ul>
         </div>
       </section>
 
