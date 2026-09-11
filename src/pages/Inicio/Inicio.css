@@ -89,7 +89,8 @@
    ========================================= */
 .home-services {
   background-color: var(--color-white);
-  padding-block: var(--spacing-lg);
+  padding-block: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
 }
 
 .home-services__layout {
@@ -102,6 +103,8 @@
 .home-services__heading {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
+  text-align: center;
   padding-top: var(--spacing-md);
 }
 
@@ -110,6 +113,7 @@
   font-weight: 700;
   color: var(--color-navy);
   line-height: 1.4;
+  text-align: center;
 }
 
 .home-services__grid {
@@ -177,7 +181,8 @@
    ========================================= */
 .home-about {
   background-color: var(--color-light);
-  padding-block: var(--spacing-lg);
+  padding-block: var(--spacing-md);
+  padding-top: var(--spacing-sm);
   border-top: 1px solid #e2e8f0;
 }
 
@@ -253,26 +258,30 @@
 .inicio-cta {
   background-color: var(--color-blue);
   color: var(--color-white);
-  padding-block: var(--spacing-xl);
+  padding-block: 1rem;
 }
 
 .inicio-cta__content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: var(--spacing-md);
+  flex-wrap: wrap;
 }
 
 .inicio-cta__title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: 1rem;
   font-weight: 700;
+  margin: 0;
 }
 
 .inicio-cta__text {
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.85);
   max-width: 480px;
+  margin: 0;
 }
 
 @media (max-width: 1023px) {
