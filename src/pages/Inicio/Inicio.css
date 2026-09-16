@@ -10,10 +10,12 @@
   background-position: center;
   background-repeat: no-repeat;
   color: var(--color-white);
-  padding-block: var(--spacing-xl);
+  padding-block: var(--spacing-md);
+  min-height: 320px;
+  display: flex;
+  align-items: center;
 }
 
-/* Overlay oscuro para que el texto sea legible sobre la imagen */
 .hero__overlay {
   position: absolute;
   inset: 0;
@@ -23,7 +25,7 @@
 
 .hero__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -34,9 +36,9 @@
 }
 
 .hero__title {
-  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--color-white);
 }
 
@@ -45,7 +47,7 @@
 }
 
 .hero__subtitle {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size: var(--text-base);
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.7;
 }
@@ -57,7 +59,21 @@
   margin-top: var(--spacing-xs);
 }
 
-/* Sobreescribir color del outline en fondo oscuro */
+/* Logo decorativo sobre el fondo del hero */
+.hero__logo-bg {
+  position: absolute;
+  right: 25%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 20vw, 300px);
+  height: auto;
+  object-fit: contain;
+  opacity: 0.18;
+  z-index: 1;
+  pointer-events: none;
+  filter: brightness(0) invert(1);
+}
+
 .hero__actions .btn--outline {
   color: var(--color-white);
   border-color: var(--color-white);
@@ -68,96 +84,213 @@
   color: var(--color-navy);
 }
 
-/* --- Servicios preview --- */
-.inicio-services {
-  padding-block: var(--spacing-xl);
-  background-color: var(--color-light);
-}
-
-.inicio-services__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-md);
-}
-
-/* Tarjetas placeholder — se reemplazarán con el diseño Figma */
-.service-card-placeholder {
+/* =========================================
+   Sección de servicios (home)
+   ========================================= */
+.home-services {
   background-color: var(--color-white);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
-  box-shadow: var(--shadow-sm);
+  padding-block: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+}
+
+.home-services__layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--spacing-md);
+  align-items: start;
+}
+
+.home-services__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  padding-top: var(--spacing-md);
+}
+
+.home-services__tagline {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-navy);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.home-services__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-service-item {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
-  transition: box-shadow var(--transition-base);
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: var(--spacing-md) var(--spacing-sm);
 }
 
-.service-card-placeholder:hover {
-  box-shadow: var(--shadow-md);
+.home-service-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.service-card-placeholder__icon {
-  font-size: 2rem;
-}
-
-.service-card-placeholder h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
+.home-service-item__title {
+  font-size: var(--text-base);
+  font-weight: 700;
   color: var(--color-navy);
 }
 
-.service-card-placeholder p {
-  font-size: 0.9rem;
+.home-service-item__desc {
+  font-size: var(--text-sm);
   color: #4a5568;
+  line-height: 1.6;
 }
 
-.inicio-services__cta {
-  text-align: center;
+/* Botón píldora */
+.home-services__cta {
+  display: flex;
+  justify-content: center;
   margin-top: var(--spacing-md);
 }
 
-.inicio-services__link {
-  font-size: 1rem;
-  font-weight: 600;
+.home-services__btn {
+  display: inline-block;
+  padding: 0.5rem 1.75rem;
+  background-color: #e8f0fe;
   color: var(--color-electric);
-  transition: color var(--transition-fast);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 100px;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
 }
 
-.inicio-services__link:hover {
-  color: var(--color-blue);
+.home-services__btn:hover {
+  background-color: var(--color-electric);
+  color: var(--color-white);
+}
+
+/* =========================================
+   Sección Somos Rozzy Tech
+   ========================================= */
+.home-about {
+  background-color: var(--color-light);
+  padding-block: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid #e2e8f0;
+}
+
+.home-about__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+/* Logo + texto */
+.home-about__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 260px;
+}
+
+.home-about__logo {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.home-about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.home-about__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.home-about__desc {
+  font-size: 0.875rem;
+  color: #4a5568;
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+/* Características */
+.home-about__features {
+  display: flex;
+  gap: var(--spacing-md);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.home-about__feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  min-width: 100px;
+}
+
+.home-about__feature-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-navy);
 }
 
 /* --- CTA final --- */
 .inicio-cta {
   background-color: var(--color-blue);
   color: var(--color-white);
-  padding-block: var(--spacing-xl);
+  padding-block: 1rem;
 }
 
 .inicio-cta__content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: var(--spacing-md);
+  flex-wrap: wrap;
 }
 
 .inicio-cta__title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: 1rem;
   font-weight: 700;
+  margin: 0;
 }
 
 .inicio-cta__text {
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.85);
   max-width: 480px;
+  margin: 0;
 }
 
-/* --- Responsive --- */
 @media (max-width: 1023px) {
-  .inicio-services__grid {
+  .home-services__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-services__layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -166,8 +299,8 @@
     padding-block: var(--spacing-lg);
   }
 
-  .inicio-services__grid {
-    grid-template-columns: 1fr;
+  .home-services__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .hero__actions {
@@ -183,5 +316,26 @@
   .hero__actions a {
     width: 100%;
     text-align: center;
+  }
+
+  .home-about__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-about__brand {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-about__features {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-services__grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
 import Inicio from './pages/Inicio/Inicio'
 import Servicios from './pages/Servicios/Servicios'
+import ServicioDetalle from './pages/ServicioDetalle/ServicioDetalle'
 import SobreNosotros from './pages/SobreNosotros/SobreNosotros'
 import Contacto from './pages/Contacto/Contacto'
 import './styles/global.css'
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/servicios" element={<Servicios />} />
+          <Route path="/servicios/:id" element={<ServicioDetalle />} />
           <Route path="/sobre-nosotros" element={<SobreNosotros />} />
           <Route path="/contacto" element={<Contacto />} />
         </Routes>

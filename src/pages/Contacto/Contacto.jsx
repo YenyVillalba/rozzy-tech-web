@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import SectionTitle from '../../components/SectionTitle/SectionTitle'
-import PageHero from '../../components/PageHero/PageHero'
+import emailjs from '@emailjs/browser'
 import Button from '../../components/Button/Button'
-import { Mail, Phone, MessageCircle, Linkedin } from 'lucide-react'
 import './Contacto.css'
+
+const EMAILJS_SERVICE_ID  = 'service_4u80m3e'
+const EMAILJS_TEMPLATE_ID = 'template_vyj587o'
+const EMAILJS_PUBLIC_KEY  = 'wjXA_2yIIWw4lGueY'
 
 const SERVICIOS_OPCIONES = [
   'Desarrollo Web',
@@ -18,6 +20,7 @@ const SERVICIOS_OPCIONES = [
 const INITIAL_FORM = {
   nombre: '',
   email: '',
+  empresa: '',
   telefono: '',
   servicio: '',
   mensaje: '',
@@ -26,7 +29,6 @@ const INITIAL_FORM = {
 const INITIAL_ERRORS = {
   nombre: '',
   email: '',
-  telefono: '',
   servicio: '',
   mensaje: '',
 }
@@ -45,16 +47,14 @@ function validate(fields) {
     errors.email = 'Ingresa un correo electrónico válido.'
   }
 
-  if (fields.telefono && !/^[0-9 +\-]{7,20}$/.test(fields.telefono)) {
-    errors.telefono = 'El teléfono solo puede contener dígitos, espacios, guiones o + (7–20 caracteres).'
-  }
-
   if (!fields.servicio) {
     errors.servicio = 'Selecciona el servicio de interés.'
   }
 
   if (!fields.mensaje.trim()) {
     errors.mensaje = 'El mensaje es obligatorio.'
+  } else if (fields.mensaje.trim().length < 20) {
+    errors.mensaje = 'El mensaje debe tener al menos 20 caracteres.'
   }
 
   return errors
@@ -68,20 +68,17 @@ function Contacto() {
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState(INITIAL_ERRORS)
   const [touched, setTouched] = useState({})
-  const [status, setStatus] = useState('idle') // 'idle' | 'success' | 'error'
+  const [status, setStatus] = useState('idle')
 
-  /* Actualizar campo */
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
-    // Revalidar en tiempo real si el campo ya fue tocado
     if (touched[name]) {
       const newErrors = validate({ ...form, [name]: value })
       setErrors((prev) => ({ ...prev, [name]: newErrors[name] }))
     }
   }
 
-  /* Marcar campo como tocado al salir */
   const handleBlur = (e) => {
     const { name } = e.target
     setTouched((prev) => ({ ...prev, [name]: true }))
@@ -89,7 +86,6 @@ function Contacto() {
     setErrors((prev) => ({ ...prev, [name]: newErrors[name] }))
   }
 
-  /* Envío del formulario */
   const handleSubmit = (e) => {
     e.preventDefault()
     const allTouched = Object.keys(INITIAL_FORM).reduce(
@@ -103,67 +99,53 @@ function Contacto() {
 
     if (hasErrors(validationErrors)) return
 
-    // TODO: integrar con servicio de envío de correo (EmailJS, Formspree, etc.)
-    console.log('Formulario enviado:', form)
-    setStatus('success')
-    setForm(INITIAL_FORM)
-    setTouched({})
-    setErrors(INITIAL_ERRORS)
+    setStatus('sending')
+
+    emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        nombre:   form.nombre,
+        email:    form.email,
+        empresa:  form.empresa  || 'No especificada',
+        telefono: form.telefono || 'No especificado',
+        servicio: form.servicio,
+        mensaje:  form.mensaje,
+      },
+      EMAILJS_PUBLIC_KEY
+    )
+      .then(() => {
+        setStatus('success')
+        setForm(INITIAL_FORM)
+        setTouched({})
+        setErrors(INITIAL_ERRORS)
+      })
+      .catch(() => {
+        setStatus('error')
+      })
   }
 
   return (
     <div className="contacto">
-      {/* Encabezado */}
-      <PageHero
-        title="Contacto"
-        subtitle="¿Tienes un proyecto en mente? Escríbenos y te respondemos a la brevedad."
-      />
+      {/* Intro centrada */}
+      <section className="contacto-intro">
+        <div className="container">
+          <h2 className="contacto-intro__titulo">Hablemos de tu proyecto.</h2>
+          <p className="contacto-intro__subtitulo">
+            Cuéntanos qué necesitas y nos pondremos en contacto contigo a la mayor brevedad posible.
+          </p>
+        </div>
+      </section>
 
       <section className="contacto-main">
         <div className="container contacto-main__inner">
-          {/* Información de contacto */}
-          <aside className="contacto-info">
-            <h2 className="contacto-info__title">Medios de contacto</h2>
-            <ul className="contacto-info__list">
-              <li className="contacto-info__item">
-                <Mail size={20} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
-                <a href="mailto:contacto@rozzytech.com" className="contacto-info__link">
-                  contacto@rozzytech.com
-                </a>
-              </li>
-              <li className="contacto-info__item">
-                <Phone size={20} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
-                <a href="tel:+573001234567" className="contacto-info__link">
-                  +57 300 123 4567
-                </a>
-              </li>
-              <li className="contacto-info__item">
-                <MessageCircle size={20} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
-                <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" className="contacto-info__link">
-                  WhatsApp
-                </a>
-              </li>
-              <li className="contacto-info__item">
-                <Linkedin size={20} strokeWidth={1.5} color="#2363da" aria-hidden="true" />
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contacto-info__link">
-                  LinkedIn
-                </a>
-              </li>
-            </ul>
-          </aside>
-
-          {/* Formulario */}
           <div className="contacto-form-wrapper">
             {status === 'success' ? (
               <div className="contacto-success" role="alert">
                 <span className="contacto-success__icon" aria-hidden="true">✅</span>
                 <h3>¡Mensaje enviado!</h3>
                 <p>Gracias por contactarnos. Te responderemos pronto.</p>
-                <Button
-                  variant="outline"
-                  size="md"
-                  onClick={() => setStatus('idle')}
-                >
+                <Button variant="outline" size="md" onClick={() => setStatus('idle')}>
                   Enviar otro mensaje
                 </Button>
               </div>
@@ -175,84 +157,96 @@ function Contacto() {
                 noValidate
                 aria-label="Formulario de contacto"
               >
-                {/* Nombre */}
-                <div className="form-group">
-                  <label htmlFor="nombre" className="form-label">
-                    Nombre <span className="form-required" aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="nombre"
-                    name="nombre"
-                    type="text"
-                    className={`form-input${errors.nombre && touched.nombre ? ' form-input--error' : ''}`}
-                    value={form.nombre}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    maxLength={100}
-                    autoComplete="name"
-                    aria-required="true"
-                    aria-describedby={errors.nombre && touched.nombre ? 'nombre-error' : undefined}
-                  />
-                  {errors.nombre && touched.nombre && (
-                    <span id="nombre-error" className="form-error" role="alert">
-                      {errors.nombre}
-                    </span>
-                  )}
+                {/* Fila 1: Nombre + Correo */}
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="nombre" className="form-label">
+                      Nombre Completo <span className="form-required" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="nombre"
+                      name="nombre"
+                      type="text"
+                      placeholder="Ingresa tu nombre"
+                      className={`form-input${errors.nombre && touched.nombre ? ' form-input--error' : ''}`}
+                      value={form.nombre}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      maxLength={100}
+                      autoComplete="name"
+                      aria-required="true"
+                    />
+                    {errors.nombre && touched.nombre && (
+                      <span className="form-error" role="alert">{errors.nombre}</span>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="email" className="form-label">
+                      Correo Electrónico <span className="form-required" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="ejemplo@correo.com"
+                      className={`form-input${errors.email && touched.email ? ' form-input--error' : ''}`}
+                      value={form.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      maxLength={254}
+                      autoComplete="email"
+                      aria-required="true"
+                    />
+                    {errors.email && touched.email && (
+                      <span className="form-error" role="alert">{errors.email}</span>
+                    )}
+                  </div>
                 </div>
 
-                {/* Correo */}
-                <div className="form-group">
-                  <label htmlFor="email" className="form-label">
-                    Correo electrónico <span className="form-required" aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    className={`form-input${errors.email && touched.email ? ' form-input--error' : ''}`}
-                    value={form.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    maxLength={254}
-                    autoComplete="email"
-                    aria-required="true"
-                    aria-describedby={errors.email && touched.email ? 'email-error' : undefined}
-                  />
-                  {errors.email && touched.email && (
-                    <span id="email-error" className="form-error" role="alert">
-                      {errors.email}
-                    </span>
-                  )}
+                {/* Fila 2: Empresa + Teléfono */}
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="empresa" className="form-label">
+                      Empresa <span className="form-optional">(opcional)</span>
+                    </label>
+                    <input
+                      id="empresa"
+                      name="empresa"
+                      type="text"
+                      placeholder="Nombre de tu empresa"
+                      className="form-input"
+                      value={form.empresa}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      maxLength={100}
+                      autoComplete="organization"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="telefono" className="form-label">
+                      Teléfono <span className="form-optional">(opcional)</span>
+                    </label>
+                    <input
+                      id="telefono"
+                      name="telefono"
+                      type="tel"
+                      placeholder="+57 300 000 0000"
+                      className="form-input"
+                      value={form.telefono}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      maxLength={20}
+                      autoComplete="tel"
+                    />
+                  </div>
                 </div>
 
-                {/* Teléfono (opcional) */}
-                <div className="form-group">
-                  <label htmlFor="telefono" className="form-label">
-                    Teléfono <span className="form-optional">(opcional)</span>
-                  </label>
-                  <input
-                    id="telefono"
-                    name="telefono"
-                    type="tel"
-                    className={`form-input${errors.telefono && touched.telefono ? ' form-input--error' : ''}`}
-                    value={form.telefono}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    maxLength={20}
-                    autoComplete="tel"
-                    aria-describedby={errors.telefono && touched.telefono ? 'telefono-error' : undefined}
-                  />
-                  {errors.telefono && touched.telefono && (
-                    <span id="telefono-error" className="form-error" role="alert">
-                      {errors.telefono}
-                    </span>
-                  )}
-                </div>
-
-                {/* Servicio de interés */}
+                {/* Fila 3: Servicio de interés */}
                 <div className="form-group">
                   <label htmlFor="servicio" className="form-label">
-                    Servicio de interés <span className="form-required" aria-hidden="true">*</span>
+                    Servicio de Interés <span className="form-required" aria-hidden="true">*</span>
                   </label>
                   <select
                     id="servicio"
@@ -262,7 +256,6 @@ function Contacto() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     aria-required="true"
-                    aria-describedby={errors.servicio && touched.servicio ? 'servicio-error' : undefined}
                   >
                     <option value="">Selecciona un servicio</option>
                     {SERVICIOS_OPCIONES.map((s) => (
@@ -270,9 +263,7 @@ function Contacto() {
                     ))}
                   </select>
                   {errors.servicio && touched.servicio && (
-                    <span id="servicio-error" className="form-error" role="alert">
-                      {errors.servicio}
-                    </span>
+                    <span className="form-error" role="alert">{errors.servicio}</span>
                   )}
                 </div>
 
@@ -284,19 +275,18 @@ function Contacto() {
                   <textarea
                     id="mensaje"
                     name="mensaje"
+                    placeholder="Cuéntanos brevemente sobre tu proyecto o consulta..."
                     className={`form-textarea${errors.mensaje && touched.mensaje ? ' form-input--error' : ''}`}
                     value={form.mensaje}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    maxLength={1000}
+                    minLength={20}
+                    maxLength={500}
                     rows={5}
                     aria-required="true"
-                    aria-describedby={errors.mensaje && touched.mensaje ? 'mensaje-error' : undefined}
                   />
                   {errors.mensaje && touched.mensaje && (
-                    <span id="mensaje-error" className="form-error" role="alert">
-                      {errors.mensaje}
-                    </span>
+                    <span className="form-error" role="alert">{errors.mensaje}</span>
                   )}
                 </div>
 
@@ -311,8 +301,9 @@ function Contacto() {
                   variant="primary"
                   size="lg"
                   className="contacto-form__submit"
+                  disabled={status === 'sending'}
                 >
-                  Enviar mensaje
+                  {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
                 </Button>
               </form>
             )}
