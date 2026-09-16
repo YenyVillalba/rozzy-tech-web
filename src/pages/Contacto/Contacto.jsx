@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import Button from '../../components/Button/Button'
 import './Contacto.css'
+
+const EMAILJS_SERVICE_ID  = 'service_4u80m3e'
+const EMAILJS_TEMPLATE_ID = 'template_vyj587o'
+const EMAILJS_PUBLIC_KEY  = 'wjXA_2yIIWw4lGueY'
 
 const SERVICIOS_OPCIONES = [
   'Desarrollo Web',
@@ -16,6 +21,7 @@ const INITIAL_FORM = {
   nombre: '',
   email: '',
   empresa: '',
+  telefono: '',
   servicio: '',
   mensaje: '',
 }
@@ -23,7 +29,6 @@ const INITIAL_FORM = {
 const INITIAL_ERRORS = {
   nombre: '',
   email: '',
-  empresa: '',
   servicio: '',
   mensaje: '',
 }
@@ -63,20 +68,17 @@ function Contacto() {
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState(INITIAL_ERRORS)
   const [touched, setTouched] = useState({})
-  const [status, setStatus] = useState('idle') // 'idle' | 'success' | 'error'
+  const [status, setStatus] = useState('idle')
 
-  /* Actualizar campo */
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
-    // Revalidar en tiempo real si el campo ya fue tocado
     if (touched[name]) {
       const newErrors = validate({ ...form, [name]: value })
       setErrors((prev) => ({ ...prev, [name]: newErrors[name] }))
     }
   }
 
-  /* Marcar campo como tocado al salir */
   const handleBlur = (e) => {
     const { name } = e.target
     setTouched((prev) => ({ ...prev, [name]: true }))
@@ -84,7 +86,6 @@ function Contacto() {
     setErrors((prev) => ({ ...prev, [name]: newErrors[name] }))
   }
 
-  /* Envío del formulario */
   const handleSubmit = (e) => {
     e.preventDefault()
     const allTouched = Object.keys(INITIAL_FORM).reduce(
@@ -98,12 +99,30 @@ function Contacto() {
 
     if (hasErrors(validationErrors)) return
 
-    // TODO: integrar con servicio de envío de correo (EmailJS, Formspree, etc.)
-    console.log('Formulario enviado:', form)
-    setStatus('success')
-    setForm(INITIAL_FORM)
-    setTouched({})
-    setErrors(INITIAL_ERRORS)
+    setStatus('sending')
+
+    emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        nombre:   form.nombre,
+        email:    form.email,
+        empresa:  form.empresa  || 'No especificada',
+        telefono: form.telefono || 'No especificado',
+        servicio: form.servicio,
+        mensaje:  form.mensaje,
+      },
+      EMAILJS_PUBLIC_KEY
+    )
+      .then(() => {
+        setStatus('success')
+        setForm(INITIAL_FORM)
+        setTouched({})
+        setErrors(INITIAL_ERRORS)
+      })
+      .catch(() => {
+        setStatus('error')
+      })
   }
 
   return (
@@ -120,18 +139,13 @@ function Contacto() {
 
       <section className="contacto-main">
         <div className="container contacto-main__inner">
-          {/* Formulario */}
           <div className="contacto-form-wrapper">
             {status === 'success' ? (
               <div className="contacto-success" role="alert">
                 <span className="contacto-success__icon" aria-hidden="true">✅</span>
                 <h3>¡Mensaje enviado!</h3>
                 <p>Gracias por contactarnos. Te responderemos pronto.</p>
-                <Button
-                  variant="outline"
-                  size="md"
-                  onClick={() => setStatus('idle')}
-                >
+                <Button variant="outline" size="md" onClick={() => setStatus('idle')}>
                   Enviar otro mensaje
                 </Button>
               </div>
@@ -161,12 +175,9 @@ function Contacto() {
                       maxLength={100}
                       autoComplete="name"
                       aria-required="true"
-                      aria-describedby={errors.nombre && touched.nombre ? 'nombre-error' : undefined}
                     />
                     {errors.nombre && touched.nombre && (
-                      <span id="nombre-error" className="form-error" role="alert">
-                        {errors.nombre}
-                      </span>
+                      <span className="form-error" role="alert">{errors.nombre}</span>
                     )}
                   </div>
 
@@ -186,17 +197,14 @@ function Contacto() {
                       maxLength={254}
                       autoComplete="email"
                       aria-required="true"
-                      aria-describedby={errors.email && touched.email ? 'email-error' : undefined}
                     />
                     {errors.email && touched.email && (
-                      <span id="email-error" className="form-error" role="alert">
-                        {errors.email}
-                      </span>
+                      <span className="form-error" role="alert">{errors.email}</span>
                     )}
                   </div>
                 </div>
 
-                {/* Fila 2: Empresa + Servicio */}
+                {/* Fila 2: Empresa + Teléfono */}
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="empresa" className="form-label">
@@ -217,33 +225,49 @@ function Contacto() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="servicio" className="form-label">
-                      Servicio de Interés <span className="form-required" aria-hidden="true">*</span>
+                    <label htmlFor="telefono" className="form-label">
+                      Teléfono <span className="form-optional">(opcional)</span>
                     </label>
-                    <select
-                      id="servicio"
-                      name="servicio"
-                      className={`form-select${errors.servicio && touched.servicio ? ' form-input--error' : ''}`}
-                      value={form.servicio}
+                    <input
+                      id="telefono"
+                      name="telefono"
+                      type="tel"
+                      placeholder="+57 300 000 0000"
+                      className="form-input"
+                      value={form.telefono}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      aria-required="true"
-                      aria-describedby={errors.servicio && touched.servicio ? 'servicio-error' : undefined}
-                    >
-                      <option value="">Selecciona un servicio</option>
-                      {SERVICIOS_OPCIONES.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                    {errors.servicio && touched.servicio && (
-                      <span id="servicio-error" className="form-error" role="alert">
-                        {errors.servicio}
-                      </span>
-                    )}
+                      maxLength={20}
+                      autoComplete="tel"
+                    />
                   </div>
                 </div>
 
-                {/* Mensaje - ancho completo */}
+                {/* Fila 3: Servicio de interés */}
+                <div className="form-group">
+                  <label htmlFor="servicio" className="form-label">
+                    Servicio de Interés <span className="form-required" aria-hidden="true">*</span>
+                  </label>
+                  <select
+                    id="servicio"
+                    name="servicio"
+                    className={`form-select${errors.servicio && touched.servicio ? ' form-input--error' : ''}`}
+                    value={form.servicio}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-required="true"
+                  >
+                    <option value="">Selecciona un servicio</option>
+                    {SERVICIOS_OPCIONES.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                  {errors.servicio && touched.servicio && (
+                    <span className="form-error" role="alert">{errors.servicio}</span>
+                  )}
+                </div>
+
+                {/* Mensaje */}
                 <div className="form-group">
                   <label htmlFor="mensaje" className="form-label">
                     Mensaje <span className="form-required" aria-hidden="true">*</span>
@@ -260,12 +284,9 @@ function Contacto() {
                     maxLength={500}
                     rows={5}
                     aria-required="true"
-                    aria-describedby={errors.mensaje && touched.mensaje ? 'mensaje-error' : undefined}
                   />
                   {errors.mensaje && touched.mensaje && (
-                    <span id="mensaje-error" className="form-error" role="alert">
-                      {errors.mensaje}
-                    </span>
+                    <span className="form-error" role="alert">{errors.mensaje}</span>
                   )}
                 </div>
 
@@ -280,8 +301,9 @@ function Contacto() {
                   variant="primary"
                   size="lg"
                   className="contacto-form__submit"
+                  disabled={status === 'sending'}
                 >
-                  Enviar mensaje
+                  {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
                 </Button>
               </form>
             )}
